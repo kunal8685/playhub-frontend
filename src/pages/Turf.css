@@ -1,0 +1,35 @@
+.turf-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+  background-color: #f0f8ff;
+}
+
+.turf-card {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 250px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.turf-card img {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.turf-card h3 {
+  color: #0077b6;
+  margin: 10px 0;
+}
+
+.turf-card p {
+  font-size: 14px;
+  color: #555;
+}
