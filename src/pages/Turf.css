@@ -1,35 +1,153 @@
+:root {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --accent-color: #333333;
+  --light-gray: #f5f5f5;
+  --mid-gray: #e0e0e0;
+  --dark-gray: #666666;
+  --error-color: #ff3333;
+  --success-color: #00cc88;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--light-gray);
+  color: var(--primary-color);
+}
+
+/* Turf Card Grid */
 .turf-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   padding: 40px;
-  background-color: #f0f8ff;
+  background-color: var(--light-gray);
 }
 
+/* Individual Card */
 .turf-card {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  width: 250px;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--mid-gray);
+  border-radius: 12px;
+  width: 260px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.turf-card:hover {
+  transform: translateY(-6px);
 }
 
 .turf-card img {
   width: 100%;
-  height: 150px;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 15px;
 }
 
 .turf-card h3 {
-  color: #0077b6;
-  margin: 10px 0;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 8px;
 }
 
 .turf-card p {
   font-size: 14px;
-  color: #555;
+  color: var(--dark-gray);
+  margin: 4px 0;
+}
+
+/* Booking Form */
+.booking-form {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 32px;
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.booking-form h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.booking-form label {
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-color);
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid var(--mid-gray);
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--primary-color);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.booking-form input:focus,
+.booking-form select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.booking-form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.booking-form button:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+}
+
+.booking-form .back-btn {
+  margin-top: 12px;
+  background-color: #888;
+}
+
+.booking-form .back-btn:hover {
+  background-color: #666;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .turf-card {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .booking-form {
+    padding: 24px;
+  }
 }

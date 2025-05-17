@@ -1,5 +1,5 @@
 .about {
-  max-width: 700px;
+  max-width: 600px;
   margin: 60px auto;
   padding: 40px;
   background-color: #fff;
@@ -20,9 +20,8 @@
 }
 
 .about p {
-  margin: 16px 0;
+  margin: 12px 0;
   line-height: 1.6;
-  font-size: 16px;
 }
 
 .about .tagline {
