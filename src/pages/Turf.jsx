@@ -1,40 +1,19 @@
-import React, { useState } from 'react';
+// Turf.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import turf1 from '../images/turf1.jpg';
-import turf2 from '../images/turf2.jpg';
-import turf3 from '../images/turf3.jpg';
 import './Turf.css';
 
 function Turf() {
+  const [turfs, setTurfs] = useState([]);
   const [selectedTurf, setSelectedTurf] = useState(null);
   const [bookingDate, setBookingDate] = useState('');
   const [selectedSport, setSelectedSport] = useState('');
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  const [bookedSlots, setBookedSlots] = useState([]);
 
-  const turfs = [
-    {
-      name: 'SportZone Turf',
-      address: 'Camp, Pune',
-      number: '+91 9876543210',
-      price: '₹1000/hour',
-      image: turf1
-    },
-    {
-      name: 'PlayField Arena',
-      address: 'Ravet, Pune',
-      number: '+91 9123456780',
-      price: '₹1200/hour',
-      image: turf2
-    },
-    {
-      name: 'Champion Turf',
-      address: 'Wakad, Pune',
-      number: '+91 9988776655',
-      price: '₹900/hour',
-      image: turf3
-    }
-  ];
+  const userId = 1; // Replace with dynamic value if logged in
 
   const timeSlots = [
     '06:00 AM - 07:00 AM',
@@ -45,19 +24,64 @@ function Turf() {
     '07:00 PM - 08:00 PM'
   ];
 
-  const handleBookNow = () => {
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/turfs')
+      .then(response => setTurfs(response.data))
+      .catch(error => toast.error('Failed to load turfs'));
+  }, []);
+
+  const fetchBookedSlots = async (turfId, date) => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/bookings`);
+      const turfBookings = res.data.filter(
+        b => b.turfId === turfId && b.bookingDate === date && b.status !== 'REJECTED'
+      );
+      const slots = turfBookings.map(b => b.timeSlot);
+      setBookedSlots(slots);
+    } catch {
+      toast.error("Couldn't fetch booked slots");
+    }
+  };
+
+  const handleBookNow = async () => {
     if (!bookingDate || !selectedSport || !selectedTimeSlot) {
-      toast.error('Please fill all fields before booking.');
+      toast.error('Please fill all fields');
       return;
     }
 
-    // Simulate successful booking
-    toast.success('Turf Booked Successfully!');
-    // Reset
+    const bookingData = {
+      userId,
+      turfId: selectedTurf.id,
+      bookingDate,
+      sport: selectedSport,
+      timeSlot: selectedTimeSlot,
+    };
+
+    try {
+      await axios.post('http://localhost:8080/api/bookings', bookingData);
+      toast.success('Turf Booked Successfully!');
+      setBookingDate('');
+      setSelectedSport('');
+      setSelectedTimeSlot('');
+      setSelectedTurf(null);
+    } catch (err) {
+      toast.error('Booking failed: ' + (err.response?.data?.message || err.message));
+    }
+  };
+
+  const handleTurfSelect = (turf) => {
+    setSelectedTurf(turf);
     setBookingDate('');
     setSelectedSport('');
     setSelectedTimeSlot('');
-    setSelectedTurf(null);
+    setBookedSlots([]);
+  };
+
+  const handleDateChange = async (date) => {
+    setBookingDate(date);
+    if (selectedTurf) {
+      await fetchBookedSlots(selectedTurf.id, date);
+    }
   };
 
   if (selectedTurf) {
@@ -69,7 +93,7 @@ function Turf() {
         <input
           type="date"
           value={bookingDate}
-          onChange={(e) => setBookingDate(e.target.value)}
+          onChange={(e) => handleDateChange(e.target.value)}
         />
 
         <label>Select Sport</label>
@@ -88,8 +112,10 @@ function Turf() {
           onChange={(e) => setSelectedTimeSlot(e.target.value)}
         >
           <option value="">-- Select Time Slot --</option>
-          {timeSlots.map((slot, index) => (
-            <option key={index} value={slot}>{slot}</option>
+          {timeSlots.map((slot, idx) => (
+            <option key={idx} value={slot} disabled={bookedSlots.includes(slot)}>
+              {slot} {bookedSlots.includes(slot) ? '(Booked)' : ''}
+            </option>
           ))}
         </select>
 
@@ -102,12 +128,12 @@ function Turf() {
   return (
     <div className="turf-list">
       {turfs.map((turf, index) => (
-        <div key={index} className="turf-card" onClick={() => setSelectedTurf(turf)}>
-          <img src={turf.image} alt={turf.name} />
+        <div key={index} className="turf-card" onClick={() => handleTurfSelect(turf)}>
+          <img src={turf.imageUrl} alt={turf.name} />
           <h3>{turf.name}</h3>
-          <p><strong>Address:</strong> {turf.address}</p>
-          <p><strong>Contact:</strong> {turf.number}</p>
-          <p><strong>Price:</strong> {turf.price}</p>
+          <p><strong>Address:</strong> {turf.location}</p>
+          <p><strong>Contact:</strong> {turf.contact}</p>
+          <p><strong>Price:</strong> ₹{turf.pricePerHour}/hour</p>
         </div>
       ))}
     </div>
