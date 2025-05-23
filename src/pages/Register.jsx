@@ -1,13 +1,14 @@
-// Register.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Register.css';
 
 function Register() {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [focused, setFocused] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,18 +19,14 @@ function Register() {
     try {
       await axios.post('http://localhost:8080/api/users/register', form);
       toast.success('Registered Successfully!');
+      setTimeout(() => navigate('/login'), 2000); // Navigate after 2s
     } catch (error) {
       toast.error('Registration Failed: ' + (error.response?.data?.message || error.message));
     }
   };
 
-  const handleFocus = (field) => {
-    setFocused(field);
-  };
-
-  const handleBlur = () => {
-    setFocused('');
-  };
+  const handleFocus = (field) => setFocused(field);
+  const handleBlur = () => setFocused('');
 
   return (
     <div className="register-container">
@@ -40,7 +37,7 @@ function Register() {
         </div>
 
         <form onSubmit={handleSubmit} className="register-form">
-          <div className={`input-group ${focused === 'username' ? 'focused' : ''}`}>
+          <div className={`input-group ${focused === 'username' || form.username ? 'focused' : ''}`}>
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -54,7 +51,7 @@ function Register() {
             />
           </div>
 
-          <div className={`input-group ${focused === 'email' ? 'focused' : ''}`}>
+          <div className={`input-group ${focused === 'email' || form.email ? 'focused' : ''}`}>
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -68,7 +65,7 @@ function Register() {
             />
           </div>
 
-          <div className={`input-group ${focused === 'password' ? 'focused' : ''}`}>
+          <div className={`input-group ${focused === 'password' || form.password ? 'focused' : ''}`}>
             <label htmlFor="password">Password</label>
             <input
               type="password"
