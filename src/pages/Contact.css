@@ -1,42 +1,62 @@
-/* Contact.css */
+:root {
+  --primary-green: #22c55e;
+  --dark-green: #16a34a;
+  --light-green: #dcfce7;
+  --white: #ffffff;
+  --gray: #f5f5f5;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563; /* Updated for better visibility */
+  --shadow-green: rgba(34, 197, 94, 0.1);
+}
+
 .contact {
-  max-width: 600px;
-  margin: 60px auto;
-  padding: 40px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  color: #000;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 3rem;
+  background-color: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--gray);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.contact:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
 .contact h2 {
   text-align: center;
-  margin-bottom: 25px;
-  font-size: 28px;
-  color: #000;
-  border-bottom: 2px solid #000;
-  padding-bottom: 10px;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .contact p {
-  margin: 12px 0;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary); /* Clear, slightly dark text */
+  margin-bottom: 1rem;
 }
 
 .contact a {
-  color: #000;
+  color: var(--primary-green);
+  font-weight: 600;
   text-decoration: none;
   margin: 0 5px;
-  font-weight: bold;
 }
 
 .contact a:hover {
   text-decoration: underline;
-  color: #555;
+  color: var(--dark-green);
 }
 
 .contact-details {
-  margin-top: 20px;
+  margin-top: 2rem;
+  color: var(--text-secondary);
 }

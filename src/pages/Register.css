@@ -1,13 +1,16 @@
-/* Register.css */
 :root {
-  --primary-color: #000000;
-  --secondary-color: #ffffff;
-  --accent-color: #333333;
-  --light-gray: #f5f5f5;
-  --mid-gray: #e0e0e0;
-  --dark-gray: #666666;
-  --error-color: #ff3333;
-  --success-color: #00cc88;
+  --primary-green: #22c55e;
+  --dark-green: #16a34a;
+  --light-green: #dcfce7;
+  --accent-green: #15803d;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  --light-gray: #f8f9fa;
+  --mid-gray: #e5e7eb;
+  --dark-gray: #4b5563;
+  --text-primary: #1f2937;
+  --text-secondary: #9ca3af;
+  --shadow-green: rgba(34, 197, 94, 0.1);
 }
 
 * {
@@ -18,51 +21,72 @@
 
 body {
   font-family: 'Inter', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--light-gray);
-  color: var(--primary-color);
+  background-color: var(--off-white);
+  color: var(--text-primary);
 }
 
+/* Register Page Container */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: var(--light-gray);
+  background: var(--off-white);
 }
 
+/* Register Card */
 .register-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 2.5rem;
-  background-color: var(--secondary-color);
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--mid-gray);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.register-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-green), var(--dark-green));
+  border-radius: 16px 16px 0 0;
 }
 
 .register-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
 }
 
+/* Header */
 .register-header {
   margin-bottom: 2rem;
   text-align: center;
 }
 
 .register-header h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.9rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .register-header p {
   color: var(--dark-gray);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
+/* Form Styles */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -78,7 +102,7 @@ body {
 
 .input-group label {
   position: absolute;
-  top: 0.8rem;
+  top: 0.9rem;
   left: 1rem;
   color: var(--dark-gray);
   font-size: 1rem;
@@ -89,80 +113,84 @@ body {
 .input-group.focused label {
   top: -0.6rem;
   left: 0.75rem;
-  font-size: 0.7rem;
-  padding: 0 0.25rem;
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  font-size: 0.75rem;
+  padding: 0 0.3rem;
+  background-color: var(--white);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .input-group input {
-  height: 3.5rem;
+  height: 3.3rem;
   padding: 0 1rem;
   border: 2px solid var(--mid-gray);
   border-radius: 8px;
   background-color: transparent;
   font-size: 1rem;
-  color: var(--primary-color);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-group input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
 .input-group.focused input {
-  padding-top: 1.2rem;
-  padding-bottom: 0.3rem;
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
 }
 
+/* Register Button */
 .register-button {
   height: 3.5rem;
   margin-top: 0.5rem;
   border: none;
-  border-radius: 8px;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .register-button:hover {
-  background-color: #222222;
+  background: linear-gradient(135deg, var(--dark-green), var(--accent-green));
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow-green);
 }
 
-.register-button:active {
-  transform: translateY(0);
-}
-
+/* Footer Link */
 .register-footer {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--dark-gray);
 }
 
 .register-footer a {
-  color: var(--primary-color);
+  color: var(--primary-green);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.25s ease;
+  margin-left: 5px;
 }
 
 .register-footer a:hover {
   text-decoration: underline;
 }
 
+/* Responsive */
 @media (max-width: 480px) {
   .register-card {
-    padding: 1.5rem;
+    padding: 2rem;
   }
-  
+
   .register-header h2 {
     font-size: 1.5rem;
+  }
+
+  .input-group input {
+    height: 3rem;
   }
 }

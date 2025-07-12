@@ -34,6 +34,7 @@ function Navbar() {
               <li><Link to="/turf" className="nav-link">Turf</Link></li>
               <li><Link to="/about" className="nav-link">About Us</Link></li>
               <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
+              
             </ul>
             <div className="navbar-auth">
               <Link to="/login" className="login-btn">Login</Link>
